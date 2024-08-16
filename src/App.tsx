@@ -18,7 +18,6 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState<Image | null>(null);
 
-  // Updated return type to Promise<void>
   const handleSearch = async (newImg: string): Promise<void> => {
     if (!newImg.trim()) {
       toast.error("Please enter a search term");
