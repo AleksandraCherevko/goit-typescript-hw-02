@@ -3,7 +3,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import fetchImages, { Image } from "./components/unsplash-api";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import SearchBar from "./components/SearchBar/SearchBar"; // Corrected import path
+import SearchBar from "./components/SeacrhBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
