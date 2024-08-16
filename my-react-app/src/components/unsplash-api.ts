@@ -22,7 +22,7 @@ export default async function fetchImages(query: string, currentPage: number) {
     params: {
       query: query,
       page: currentPage,
-      per_page: 10,
+      per_page: 9,
       client_id: "xpSRSmDQWhP5U1mXscZhRKuLWymNxqd_rVhUFDssqgs",
       orientation: "landscape",
     },

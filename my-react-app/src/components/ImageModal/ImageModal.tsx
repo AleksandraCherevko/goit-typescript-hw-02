@@ -5,12 +5,12 @@ import { Image } from "../unsplash-api";
 Modal.setAppElement("#root");
 
 type Props = {
-  image: Image | null;
   isOpen: boolean;
   onRequestClose: () => void;
+  data: Image | null;
 };
 
-export default function ImageModal({ isOpen, onRequestClose, data }) {
+export default function ImageModal({ isOpen, onRequestClose, data }: Props) {
   if (!data) {
     return null;
   }

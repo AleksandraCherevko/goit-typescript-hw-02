@@ -14,7 +14,7 @@ export default function App() {
   const [error, setError] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [images, setImages] = useState<string>("");
-  const [totalPages, setTotalPages] = useState<number>(1); // 200 → 1, чтобы не было неверного текста
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState<Image | null>(null);
 
@@ -57,8 +57,8 @@ export default function App() {
         setError(false);
         const data = await fetchImages(images, page);
         setTotalPages(data.total_pages);
-        setPhotos((prevPhotos) => [...prevPhotos, ...data.results]);
-      } catch (error) {
+        setPhotos((prevPhotos: Image[]) => [...prevPhotos, ...data.results]);
+      } catch {
         setError(true);
         toast.error("Failed to fetch images. Please try again.");
       } finally {
@@ -69,6 +69,9 @@ export default function App() {
     getPhotos();
   }, [page, images]);
 
+
+  const noMorePhotos = photos.length > 0 && page >= totalPages;
+
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
@@ -78,8 +81,14 @@ export default function App() {
       {photos.length > 0 && (
         <ImageGallery items={photos} onImageClick={handleImageClick} />
       )}
-      {photos.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
-      {page >= totalPages && <p>THIS IS THE END! RUN FOOLS</p>}
+      {photos.length > 0 && (
+        <LoadMoreBtn
+          onClick={handleLoadMore}
+          hasMore={!noMorePhotos} 
+        />
+      )}
+      {noMorePhotos && <p>THIS IS THE END! RUN FOOLS</p>}
+     
       {isModalOpen && (
         <ImageModal
           isOpen={isModalOpen}
