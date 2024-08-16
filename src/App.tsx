@@ -3,7 +3,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import fetchImages, { Image } from "./components/unsplash-api";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import SearchBar from "./components/SeacrhBar/SearchBar";
+import SearchBar from "./components/SearchBar/SearchBar"; // Corrected import path
 import toast, { Toaster } from "react-hot-toast";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
@@ -18,7 +18,8 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState<Image | null>(null);
 
-  const handleSearch = async (newImg: string): void => {
+  // Updated return type to Promise<void>
+  const handleSearch = async (newImg: string): Promise<void> => {
     if (!newImg.trim()) {
       toast.error("Please enter a search term");
       return;
@@ -69,7 +70,6 @@ export default function App() {
     getPhotos();
   }, [page, images]);
 
-
   const noMorePhotos = photos.length > 0 && page >= totalPages;
 
   return (
@@ -82,13 +82,10 @@ export default function App() {
         <ImageGallery items={photos} onImageClick={handleImageClick} />
       )}
       {photos.length > 0 && (
-        <LoadMoreBtn
-          onClick={handleLoadMore}
-          hasMore={!noMorePhotos} 
-        />
+        <LoadMoreBtn onClick={handleLoadMore} hasMore={!noMorePhotos} />
       )}
       {noMorePhotos && <p>THIS IS THE END! RUN FOOLS</p>}
-     
+
       {isModalOpen && (
         <ImageModal
           isOpen={isModalOpen}
